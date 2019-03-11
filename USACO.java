@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  public static String bronze(String filename) throws FileNotFoundException{
+  public static int bronze(String filename) throws FileNotFoundException{
     File f = new File(filename);
     Scanner inf = new Scanner(f);
     //Parseint the output
@@ -26,36 +26,35 @@ public class USACO{
       output += "\n";
     }
 
-    ArrayList<Integer> cowsqaure = new ArrayList<Integer>();
-    while(inf.hasNextLine()){
-      int targetR = Integer.parseInt(inf.next());
-      int targetC = Integer.parseInt(inf.next());
-      int stomp = Integer.parseInt(inf.next());
-
-      //get the highest value out of 3 by 3 sqaure
-      // cowsqaure.add(lake[targetR][targetC]);
-      // cowsqaure.add(lake[targetR + 1][targetC]);
-      // cowsqaure.add(lake[targetR + 1][targetC + 1]);
-      // cowsqaure.add(lake[targetR + 1][targetC - 1]);
-      // cowsqaure.add(lake[targetR - 1][targetC]);
-      // cowsqaure.add(lake[targetR - 1][targetC + 1]);
-      // cowsqaure.add(lake[targetR - 1][targetC - 1]);
-      // cowsqaure.add(lake[targetR][targetC + 1]);
-      // cowsqaure.add(lake[targetR][targetC - 1]);
-      //int highest
-
-      int aim = highest - stomp;
-      for (int i = 0; i < stomp; i++){
-        for (int j = 0; j < 9; j++){
-          int v1 = cowsqaure.get(j);
-          if (v1 >=  aim){
-            cowsqaure.set(i , v1 - 1);
-            }
-          }
-        }
-        return output;
+    //getting the stomp field dimesension
+    int[][] pasture = new int[inputN][3];
+    for(int i = 0; i < inputN; i++){
+      for(int j =0; j < 3; j++){
+        pasture[i][j] = Integer.parseInt(inf.next());
       }
     }
+
+    // while(inf.hasNextLine()){
+    //   int targetR = Integer.parseInt(inf.next());
+    //   int targetC = Integer.parseInt(inf.next());
+    //   int stomp = Integer.parseInt(inf.next());
+    //
+    //   int aim = highest - stomp;
+    //   for (int i = 0; i < stomp; i++){
+    //     for (int j = 0; j < 9; j++){
+    //       int v1 = cowsqaure.get(j);
+    //       if (v1 >=  aim){
+    //         cowsqaure.set(i , v1 - 1);
+    //         }
+    //       }
+    //     }
+    //   }
+    // after the stomp
+
+    return 0;
+    }
+
+
 
     public static void main (String[] args){
       try{
@@ -64,7 +63,7 @@ public class USACO{
       //  System.out.println(USACO.board);
       }
       catch(FileNotFoundException e){
-        System.out.println("yongtong");
+        System.out.println("caught");
       }
     }
 }
