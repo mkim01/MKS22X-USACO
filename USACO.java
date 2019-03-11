@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  public static String bronze(String filename) throws FileNotFoundException{
+  public static int bronze(String filename) throws FileNotFoundException{
     File f = new File(filename);
     Scanner inf = new Scanner(f);
     //Parseint the output
@@ -11,6 +11,7 @@ public class USACO{
     int inputC = Integer.parseInt(inf.next());
     int inputE = Integer.parseInt(inf.next());
     int inputN = Integer.parseInt(inf.next());
+    int depth = 0;
     // 2D array
     int[][] lake = new int[inputR][inputC];
     for (int i = 0; i < inputR; i++){
@@ -56,8 +57,21 @@ public class USACO{
       }
       output += "\n";
     }
-    return output;
-}
+
+    for (int i = 0; i < lake.length; i++){
+      for(int j = 0; j < lake[0].length; j++){
+        int remain = inputE - lake[i][j];
+        if(remain > 0){
+          lake[i][j] = remain;
+        }
+        else{
+          lake[i][j] = 0;
+        }
+        depth += lake[i][j];
+      }
+    }
+    return 72 * 72 * depth;
+    }
 
       // for (int i = 0; i < stomp; i++){
       //   for (int j = 0; j < 9; j++){
