@@ -18,43 +18,51 @@ public class USACO{
         lake[i][j] = Integer.parseInt(inf.next());
       }
     }
-    String output = "";
-    for (int a = 0; a < inputR; a++){
-      for (int b = 0; b < inputC; b++){
-        output += lake[a][b];
-      }
-      output += "\n";
-    }
 
     //getting the stomp field dimesension
     int[][] pasture = new int[inputN][3];
     for(int i = 0; i < inputN; i++){
       for(int j =0; j < 3; j++){
         pasture[i][j] = Integer.parseInt(inf.next());
+
+      }
+    }
+    //debug
+    String output = "";
+    for (int a = 0; a < pasture.length; a++){
+      for (int b = 0; b < pasture[0].length; b++){
+        output += pasture[a][b] + ".";
+      }
+      output += "\n";
+    }
+
+    //digging stomp
+    for (int i = 0; i < pasture.length; i++){
+      int R_s = pasture[i][0];
+      int C_s = pasture[i][1];
+      int D_s = pasture[i][2];
+      int max = 0;
+      for (int r = inputR; r <= inputR + 2; r++){
+        for (int c = inputC; c <= inputC + 2; c++){
+          if (pasture[r - 1][c - 1] > max){
+            max = pasture[r - 1][c - 1];
+          }
+        }
       }
     }
 
-    // while(inf.hasNextLine()){
-    //   int targetR = Integer.parseInt(inf.next());
-    //   int targetC = Integer.parseInt(inf.next());
-    //   int stomp = Integer.parseInt(inf.next());
-    //
-    //   int aim = highest - stomp;
-    //   for (int i = 0; i < stomp; i++){
-    //     for (int j = 0; j < 9; j++){
-    //       int v1 = cowsqaure.get(j);
-    //       if (v1 >=  aim){
-    //         cowsqaure.set(i , v1 - 1);
-    //         }
-    //       }
-    //     }
-    //   }
-    // after the stomp
-
-    return 0;
+      // for (int i = 0; i < stomp; i++){
+      //   for (int j = 0; j < 9; j++){
+      //     int v1 = cowsqaure.get(j);
+      //     if (v1 >=  aim){
+      //       cowsqaure.set(i , v1 - 1);
+      //       }
+      //     }
+      //   }
+      // }
+    //after the stomp
+      return 0;
     }
-
-
 
     public static void main (String[] args){
       try{
