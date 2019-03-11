@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  public static int bronze(String filename) throws FileNotFoundException{
+  public static String bronze(String filename) throws FileNotFoundException{
     File f = new File(filename);
     Scanner inf = new Scanner(f);
     //Parseint the output
@@ -24,32 +24,40 @@ public class USACO{
     for(int i = 0; i < inputN; i++){
       for(int j =0; j < 3; j++){
         pasture[i][j] = Integer.parseInt(inf.next());
-
       }
     }
-    //debug
-    String output = "";
-    for (int a = 0; a < pasture.length; a++){
-      for (int b = 0; b < pasture[0].length; b++){
-        output += pasture[a][b] + ".";
-      }
-      output += "\n";
-    }
-
     //digging stomp
     for (int i = 0; i < pasture.length; i++){
       int R_s = pasture[i][0];
       int C_s = pasture[i][1];
-      int D_s = pasture[i][2];
-      int max = 0;
-      for (int r = inputR; r <= inputR + 2; r++){
-        for (int c = inputC; c <= inputC + 2; c++){
-          if (pasture[r - 1][c - 1] > max){
-            max = pasture[r - 1][c - 1];
+    //  int D_s = pasture[i][2];
+        int max = 0;
+        for (int r = R_s - 1; r < R_s + 2; r++){
+          for (int c = C_s - 1; c < C_s + 2; c++){
+            if (lake[r][c] > max){
+              max = lake[r][c];
+            }
+          }
+        }
+        max = max - pasture[i][2];
+        for (int r = R_s - 1; r < R_s + 2; r++){
+          for (int c = C_s - 1; c < C_s + 2; c++){
+            if (lake[r][c] > max){
+              max = lake[r][c];
+            }
           }
         }
       }
+    //debug
+    String output = "";
+    for (int a = 0; a < lake.length; a++){
+      for (int b = 0; b < lake[0].length; b++){
+        output += lake[a][b] + " ";
+      }
+      output += "\n";
     }
+    return output;
+}
 
       // for (int i = 0; i < stomp; i++){
       //   for (int j = 0; j < 9; j++){
@@ -61,8 +69,7 @@ public class USACO{
       //   }
       // }
     //after the stomp
-      return 0;
-    }
+//      return 0;
 
     public static void main (String[] args){
       try{
