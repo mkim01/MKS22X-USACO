@@ -90,6 +90,23 @@ public class USACO{
         }
       }
     }
+      int R1 = Integer.parseInt(inf.next());
+      int C1 = Integer.parseInt(inf.next());
+      int R2 = Integer.parseInt(inf.next());
+      int C2 = Integer.parseInt(inf.next());
+      while(T > 0){
+        for(int i = 0; i < N; i++){
+          for(int j =0; j < M; j++){
+            for (int k = 0; k < moves.length; k++){
+              if (pasture[R1 + moves[k][0]][C1 + moves[k][1]] != -1){
+                pasture[R1 + moves[k][0]][C1 + moves[k][1]]++;
+              }
+            }
+            T--;
+          }
+        }
+      }
+
       return 0;
 
     }
@@ -97,9 +114,10 @@ public class USACO{
 
     public static void main (String[] args){
       try{
-        USACO u1 = new USACO();
-        System.out.println(bronze("makelake.1.in"));
+        // USACO u1 = new USACO();
+        // System.out.println(bronze("makelake.1.in"));
       //  System.out.println(USACO.board);
+        System.out.println(silver("ctravel.1.in"));
       }
       catch(FileNotFoundException e){
         System.out.println("caught");
