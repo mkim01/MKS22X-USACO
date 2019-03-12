@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  public static String bronze(String filename) throws FileNotFoundException{
+  public static int bronze(String filename) throws FileNotFoundException{
     File f = new File(filename);
     Scanner inf = new Scanner(f);
     //Parseint the output
@@ -62,16 +62,35 @@ public class USACO{
         depth += lake[i][j];
       }
     }
-    //return 72 * 72 * depth;
+    return 72 * 72 * depth;
     //debug
-    String output = "";
-    for (int a = 0; a < lake.length; a++){
-      for (int b = 0; b < lake[0].length; b++){
-        output += lake[a][b] + " ";
-      }
-      output += "\n";
+    // String output = "";
+    // for (int a = 0; a < lake.length; a++){
+    //   for (int b = 0; b < lake[0].length; b++){
+    //     output += lake[a][b] + " ";
+    //   }
+    //   output += "\n";
+    // }
+    // return output;
     }
-    return output;
+
+    public static int silver(String filename) throws FileNotFoundException{
+      File f = new File(filename);
+      Scanner inf = new Scanner(f);
+      int N = Integer.parseInt(inf.next());
+      int M = Integer.parseInt(inf.next());
+      int T = Integer.parseInt(inf.next());
+      int[][] moves = {{1,0} , {-1,0}, {0,1}, {0,-1}};
+      int[][] pasture = new int[N][M];
+      for(int i = 0; i < N; i++){
+        String line = inf.nextLine();
+        for(int j = 0; j < M; j++){
+          if(line.charAt(j) == '*'){
+            pasture[i][j] = -1;
+        }
+      }
+    }
+      return 0;
 
     }
 
