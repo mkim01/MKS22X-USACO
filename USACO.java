@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  public static int bronze(String filename) throws FileNotFoundException{
+  public static String bronze(String filename) throws FileNotFoundException{
     File f = new File(filename);
     Scanner inf = new Scanner(f);
     //Parseint the output
@@ -31,10 +31,10 @@ public class USACO{
     for (int i = 0; i < pasture.length; i++){
       int R_s = pasture[i][0];
       int C_s = pasture[i][1];
-    //  int D_s = pasture[i][2];
-        int max = 0;
+      int max = 0;
         for (int r = R_s - 1; r < R_s + 2; r++){
           for (int c = C_s - 1; c < C_s + 2; c++){
+            //in the cow-stomping instruction the row and column doesn't start from 0
             if (lake[r][c] > max){
               max = lake[r][c];
             }
@@ -44,19 +44,11 @@ public class USACO{
         for (int r = R_s - 1; r < R_s + 2; r++){
           for (int c = C_s - 1; c < C_s + 2; c++){
             if (lake[r][c] > max){
-              max = lake[r][c];
+              lake[r][c] = max;
             }
           }
         }
       }
-    //debug
-    String output = "";
-    for (int a = 0; a < lake.length; a++){
-      for (int b = 0; b < lake[0].length; b++){
-        output += lake[a][b] + " ";
-      }
-      output += "\n";
-    }
 
     for (int i = 0; i < lake.length; i++){
       for(int j = 0; j < lake[0].length; j++){
@@ -70,20 +62,19 @@ public class USACO{
         depth += lake[i][j];
       }
     }
-    return 72 * 72 * depth;
+    //return 72 * 72 * depth;
+    //debug
+    String output = "";
+    for (int a = 0; a < lake.length; a++){
+      for (int b = 0; b < lake[0].length; b++){
+        output += lake[a][b] + " ";
+      }
+      output += "\n";
+    }
+    return output;
+
     }
 
-      // for (int i = 0; i < stomp; i++){
-      //   for (int j = 0; j < 9; j++){
-      //     int v1 = cowsqaure.get(j);
-      //     if (v1 >=  aim){
-      //       cowsqaure.set(i , v1 - 1);
-      //       }
-      //     }
-      //   }
-      // }
-    //after the stomp
-//      return 0;
 
     public static void main (String[] args){
       try{
