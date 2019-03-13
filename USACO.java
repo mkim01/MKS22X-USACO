@@ -81,43 +81,72 @@ public class USACO{
       int M = Integer.parseInt(inf.next());
       int T = Integer.parseInt(inf.next());
       int[][] moves = {{1,0} , {-1,0}, {0,1}, {0,-1}};
-      int[][] pasture = new int[N][M];
-      for(int i = 0; i < N; i++){
+      String[][] pasture = new String[N][M];
+
+      //initalize the pasture
+      for (int i =0; i < N; i++){
         String line = inf.nextLine();
+        for (int j =0; j < line.length(); j++){
+          pasture[i][j] = line.substring(j, j + 1);
+        }
+      }
+      //initialize the state of pasture
+      // pasture[i][j] < 0--> occupied
+
+      int[][] state = new int[N][M];
+      for(int i = 0; i < N; i++){
         for(int j = 0; j < M; j++){
-          if(line.charAt(j) == '*'){
-            pasture[i][j] = -1;
+          if(pasture[i][j].equals("*")){
+            state[i][j] = -1;
         }
       }
     }
-      int R1 = Integer.parseInt(inf.next());
-      int C1 = Integer.parseInt(inf.next());
-      int R2 = Integer.parseInt(inf.next());
-      int C2 = Integer.parseInt(inf.next());
+      int R1 = Integer.parseInt(inf.next()) - 1;
+      int C1 = Integer.parseInt(inf.next()) - 1;
+      int R2 = Integer.parseInt(inf.next()) - 1;
+      int C2 = Integer.parseInt(inf.next()) - 1;
+
+      state[R1][C1] = 1; // starting point
       while(T > 0){
-        for(int i = 0; i < N; i++){
-          for(int j =0; j < M; j++){
-            for (int k = 0; k < moves.length; k++){
-              if (pasture[R1 + moves[k][0]][C1 + moves[k][1]] != -1){
-                pasture[R1 + moves[k][0]][C1 + moves[k][1]]++;
+        for (int b = 0; b < state.length; b++){
+          for(int c =0; c < state[0].length; c++){
+            if(state[b][c] != -1){
+              for (int k = 0; k < moves.length; k++){
+                if (checkbound(b + moves[k][0], c + moves[k][1], state)){
+                  state[b + moves[k][0]][c + moves[k][1]] += state[b][c];
+                }
               }
-            }
-            T--;
+              state[b][c] = 0;
           }
         }
       }
-
-      return 0;
-
+      T--;
     }
 
+      //
+      // while(T > 0){
+      //   for(int i = 0; i < N; i++){
+      //     for(int j =0; j < M; j++){
+      //       if (map[r][c] > 0){
+      //         for (int i =)
+      //         }
+      //       }
+      //     }
+      //   }
+      return state[R2][C2];
+      }
+
+      private static boolean checkbound(int r, int c, int[][] state){
+        if (r < 0 || r >= state.length || c < 0 || c >= state[0].length){
+          return false;
+        }
+        return true;
+      }
 
     public static void main (String[] args){
       try{
-        // USACO u1 = new USACO();
-        // System.out.println(bronze("makelake.1.in"));
-      //  System.out.println(USACO.board);
-        System.out.println(silver("ctravel.1.in"));
+      //   System.out.println(bronze(args[0]));
+        System.out.println(silver(args[0]));
       }
       catch(FileNotFoundException e){
         System.out.println("caught");
