@@ -106,33 +106,25 @@ public class USACO{
       int R2 = Integer.parseInt(inf.next()) - 1;
       int C2 = Integer.parseInt(inf.next()) - 1;
 
+      int[][] newstate = new int[state.length][state[0].length];
       state[R1][C1] = 1; // starting point
       while(T > 0){
         for (int b = 0; b < state.length; b++){
           for(int c =0; c < state[0].length; c++){
             if(state[b][c] != -1){
-              for (int k = 0; k < moves.length; k++){
-                if (checkbound(b + moves[k][0], c + moves[k][1], state)){
-                  state[b + moves[k][0]][c + moves[k][1]] += state[b][c];
+              newstate[b][c] = -1;
+            }
+              else{
+                for (int k = 0; k < moves.length; k++){
+                  if (checkbound(b + moves[k][0], c + moves[k][1], state) && state[b + moves[k][0]][c + moves[k][1]] > 0){
+                    newstate[b + moves[k][0]][c + moves[k][1]] += state[b][c];
                 }
               }
-              state[b][c] = 0;
           }
         }
       }
       T--;
     }
-
-      //
-      // while(T > 0){
-      //   for(int i = 0; i < N; i++){
-      //     for(int j =0; j < M; j++){
-      //       if (map[r][c] > 0){
-      //         for (int i =)
-      //         }
-      //       }
-      //     }
-      //   }
       return state[R2][C2];
       }
 
