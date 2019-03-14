@@ -99,11 +99,12 @@ public class USACO{
       for(int i = 0; i < N; i++){
         String word = inf.next();
         for(int j = 0; j < M; j++){
-          if (word.charAt(j) == '*'){
+          if (word.charAt(j) != '*'){
             state[i][j] = -1;
           }
         }
       }
+
       int[][] outstate = new int[N][M];
       int R1 = Integer.parseInt(inf.next()) - 1;
       int C1 = Integer.parseInt(inf.next()) - 1;
@@ -136,7 +137,7 @@ public class USACO{
     for(int t = 0; t < T; t++){
       for (int a = 0; a < N; a++){
         for (int b = (a+g) % 2; b < M; b += 2){
-          if (outstate[a][b] != -1){
+          if (state[a][b] == -1){
             try{
             if (a > 0){
               outstate[a-1][b] += outstate[a][b];
