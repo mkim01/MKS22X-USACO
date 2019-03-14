@@ -80,53 +80,86 @@ public class USACO{
       int N = Integer.parseInt(inf.next());
       int M = Integer.parseInt(inf.next());
       int T = Integer.parseInt(inf.next());
-      int[][] moves = {{1,0} , {-1,0}, {0,1}, {0,-1}};
-      String[][] pasture = new String[N][M];
-
+      // int[][] moves = {{1,0} , {-1,0}, {0,1}, {0,-1}};
+      // System.out.println(N);
+      // System.out.println(M);
+      // System.out.println(T);
       //initalize the pasture
-      for (int i =0; i < N; i++){
-        String line = inf.nextLine();
-        for (int j =0; j < line.length(); j++){
-          pasture[i][j] = line.substring(j, j + 1);
-        }
-      }
+      // for (int i =0; i < N; i++){
+      //   String line = inf.nextLine();
+      //   for (int j =0; j < line.length(); j++){
+      //     pasture[i][j] = line.substring(j, j + 1);
+      //     System.out.println(pasture[i][j]);
+      //   }
+      // }
+
       //initialize the state of pasture
       // pasture[i][j] < 0--> occupied
-
       int[][] state = new int[N][M];
       for(int i = 0; i < N; i++){
+        String word = inf.next();
         for(int j = 0; j < M; j++){
-          if(pasture[i][j].equals("*")){
+          if (word.charAt(j) == '*'){
             state[i][j] = -1;
+          }
         }
       }
-    }
+      int[][] outstate = new int[N][M];
       int R1 = Integer.parseInt(inf.next()) - 1;
       int C1 = Integer.parseInt(inf.next()) - 1;
       int R2 = Integer.parseInt(inf.next()) - 1;
       int C2 = Integer.parseInt(inf.next()) - 1;
-
-      int[][] newstate = new int[state.length][state[0].length];
-      state[R1][C1] = 1; // starting point
-      while(T > 0){
-        for (int b = 0; b < state.length; b++){
-          for(int c =0; c < state[0].length; c++){
-            if(state[b][c] != -1){
-              newstate[b][c] = -1;
+      // System.out.println(R1);
+      // System.out.println(C1);
+      // System.out.println(R2);
+      // System.out.println(C2);
+    //     while(T > 0){
+    //     int[][] newstate = state;
+    //     state = new int[N][M];
+    //     for (int b = 0; b < state.length; b++){
+    //       for(int c =0; c < state[0].length; c++){
+    //         if(newstate[b][c] == -1){
+    //           state[b][c] = -1;
+    //         }
+    //         else{
+    //           for (int k = 0; k < moves.length; k++){
+    //             try{
+    //               if (newstate[b + moves[k][0]][c + moves[k][1]] > 0){
+    //                 state[b][c] += newstate[b + moves[k][0]][c + moves[k][0]];
+    //                 //System.out.println(state[b][c]);
+    //               }
+    //             }
+    //             catch(ArrayIndexOutOfBoundsException e){}
+    //             }
+    outstate[R1][C1] = 1;
+    int g = (R1 + C1) % 2;
+    for(int t = 0; t < T; t++){
+      for (int a = 0; a < N; a++){
+        for (int b = (a+g) % 2; b < M; b += 2){
+          if (outstate[a][b] != -1){
+            try{
+            if (a > 0){
+              outstate[a-1][b] += outstate[a][b];
             }
-              else{
-                for (int k = 0; k < moves.length; k++){
-                  if (checkbound(b + moves[k][0], c + moves[k][1], state) && state[b + moves[k][0]][c + moves[k][1]] > 0){
-                    newstate[b + moves[k][0]][c + moves[k][1]] += state[b][c];
-                }
-              }
+            if (b > 0){
+              outstate[a][b -1] += outstate[a][b];
+            }
+            if (b < M- 1){
+              outstate[a][b+1] += outstate[a][b];
+            }
+            if (a < N - 1){
+              outstate[a+1][b] += outstate[a][b];
+            }
           }
+          catch(ArrayIndexOutOfBoundsException e){}
+          }
+          outstate[a][b] = 0;
         }
       }
-      T--;
+      g = (g + 1) % 2;
     }
-      return state[R2][C2];
-      }
+      return outstate[R2][C2];
+    }
 
       private static boolean checkbound(int r, int c, int[][] state){
         if (r < 0 || r >= state.length || c < 0 || c >= state[0].length){
